@@ -6,7 +6,7 @@
     </HeaderNav>
 
     <!-- content -->
-    <div class="p-4 overflow-auto overflow-x-hidden h-full w-full">
+    <div class="p-4 overflow-auto overflow-x-hidden w-full content-wrapper">
       <slot />
     </div>
   </div>
@@ -18,3 +18,9 @@ import HeaderNav from './HeaderNav.vue';
 
 const $colorMode = useColorMode()
 </script>
+
+<style lang="scss" scoped>
+.content-wrapper {
+  height: calc(100vh - 60px);
+}
+</style>

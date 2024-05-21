@@ -60,9 +60,17 @@ const props = defineProps({
 
 const message = computed(() => props.message)
 
+const scrollIntoView = () => {
+  bodyRef.value?.scrollIntoView({ behavior: 'smooth' })
+}
+
+defineExpose({
+  scrollIntoView
+})
+
 onMounted(() => {
   nextTick(() => {
-    bodyRef.value?.scrollIntoView({ behavior: 'smooth' })
+    scrollIntoView();
   })
 })
 

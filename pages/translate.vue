@@ -9,21 +9,21 @@
     <UDivider class="mb-4" />
 
     <UForm :state="state" :validate-on="['submit']"
-      class="flex gap-2 flex-nowrap w-full box-border px-2 shrink-0 form-wrapper">
+      class="flex gap-2 flex-nowrap w-full box-border px-2 shrink-0 form-wrapper overflow-auto flex-col md:flex-row">
       <UFormGroup label="" name="input" class="shrink w-full h-full">
-        <UTextarea autoresize :disabled="pending" :rows="18" :max-rows="18" v-model="state.left" placeholder="请输入中文..."
+        <UTextarea autoresize :disabled="pending" :rows="12" :max-rows="12" v-model="state.left" placeholder="请输入中文..."
           @input="onInput('left')" />
       </UFormGroup>
-      <UFormGroup label="" name="output" class="shrink-0 w-auto flex">
+      <UFormGroup label="" name="output" class="shrink-0 w-auto flex justify-center">
         <UButton v-bind:loading="pending" @click="onTranslate" class="w-full">
-          <div class="flex items-center gap-2 flex-col">
+          <div class="flex items-center gap-2 flex-col sm:items-center">
             <span>Translate</span>
             <i class="i-heroicons-arrows-right-left"></i>
           </div>
         </UButton>
       </UFormGroup>
       <UFormGroup label="" name="input" class="shrink w-full h-full">
-        <UTextarea autoresize :disabled="pending" :rows="18" :max-rows="18" v-model="state.right"
+        <UTextarea autoresize :disabled="pending" :rows="12" :max-rows="12" v-model="state.right"
           placeholder="please input English..." @input="onInput('right')" />
       </UFormGroup>
     </UForm>

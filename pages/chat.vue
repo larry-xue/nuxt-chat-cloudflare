@@ -12,7 +12,7 @@
 
     <UDivider class="mb-4" />
 
-    <div class="w-full h-full overflow-x-hidden overflow-y-auto">
+    <div class="w-full max-h-full p-2 overflow-x-hidden overflow-y-auto">
       <ClientOnly>
         <div v-for="msg in messages" :ref="(el) => messageBoxRef = el">
           <Message :is-me="msg.isMe" :message="msg.message" />

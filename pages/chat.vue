@@ -12,23 +12,26 @@
 
     <UDivider class="mb-4" />
 
-    <div class="w-full p-2 overflow-x-hidden overflow-y-auto chat-messages">
-      <ClientOnly class="w-full">
-        <div v-for="msg in messages" :ref="(el) => messageBoxRef = el">
-          <Message :is-me="msg.isMe" :message="msg.message" />
-        </div>
-      </ClientOnly>
-    </div>
+    <div class="flex flex-col w-full h-full">
+      <div class="w-full h-full p-2 overflow-x-hidden overflow-y-auto chat-messages">
+        <ClientOnly class="w-full">
+          <div v-for="msg in messages" :ref="(el) => messageBoxRef = el">
+            <Message :is-me="msg.isMe" :message="msg.message" />
+          </div>
+        </ClientOnly>
+      </div>
 
-    <UForm :state="state" :validate-on="['submit']" class="flex gap-1 flex-nowrap w-full box-border px-2 shrink-0">
-      <UFormGroup label="" name="input" class="shrink w-full">
-        <UTextarea autoresize :rows="1" @keyup.enter.exact="sendMessage" v-model="state.message" :maxrows="10"
-          placeholder="Type a message..." :ref="(el) => textareaRef = el" />
-      </UFormGroup>
-      <UFormGroup label="" name="output" class="shrink-0 w-auto flex items-end">
-        <UButton v-bind:loading="pending" @click="sendMessage" label="Send" class="w-full" />
-      </UFormGroup>
-    </UForm>
+      <UForm :state="state" :validate-on="['submit']"
+        class="flex gap-1 flex-nowrap w-full box-border px-2 shrink-0 h-fit">
+        <UFormGroup label="" name="input" class="shrink w-full">
+          <UTextarea autoresize :rows="1" @keyup.enter.exact="sendMessage" v-model="state.message" :maxrows="10"
+            placeholder="Type a message..." :ref="(el) => textareaRef = el" />
+        </UFormGroup>
+        <UFormGroup label="" name="output" class="shrink-0 w-auto flex items-end">
+          <UButton v-bind:loading="pending" @click="sendMessage" label="Send" class="w-full" />
+        </UFormGroup>
+      </UForm>
+    </div>
   </Layout>
 </template>
 
@@ -121,11 +124,13 @@ function sendMessage() {
   pending.value = true
   getAiResponse().then((response) => {
     messages.value[messages.value.length - 1].message.body = response
-    messages.value[messages.value.length - 1].gotResponse = true
+    messages.value[messages.value.length - 1].gotResponse = true;
+    nextTick(() => {
+      (messageBoxRef.value as Element).scrollIntoView({ behavior: 'smooth' });
+    })
   }).catch((e) => {
     toast.add({ title: 'Error', description: 'Something went wrong...', color: 'red', icon: 'i-heroicons-exclamation-circle' })
     messages.value[messages.value.length - 1].message.body = "I'm sorry, something went wrong, please try again.";
-    (messageBoxRef.value as Element).scrollIntoView();
   }).finally(() => {
     pending.value = false
   })
@@ -140,8 +145,4 @@ function sendMessage() {
 }
 </script>
 
-<style lang="scss" scoped>
-.chat-messages {
-  height: calc(100% - 60px);
-}
-</style>
+<style lang="scss" scoped></style>

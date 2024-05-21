@@ -1,5 +1,5 @@
 <template>
-  <Layout class="box-border">
+  <Layout class="box-border overflow-hidden">
     <template #header>
       <div class="flex gap-4 items-center w-full justify-around">
         <h1 class="text-3xl font-bold">Chat with me</h1>
@@ -12,7 +12,7 @@
 
     <UDivider class="mb-4" />
 
-    <div class="flex flex-col w-full h-full">
+    <div class="flex flex-col w-full chat-box-wrapper">
       <div class="w-full h-full p-2 overflow-x-hidden overflow-y-auto chat-messages">
         <ClientOnly class="w-full">
           <div v-for="msg in messages" :ref="(el) => messageBoxRef = el">
@@ -145,4 +145,8 @@ function sendMessage() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.chat-box-wrapper {
+  height: calc(100% - 20px);
+}
+</style>

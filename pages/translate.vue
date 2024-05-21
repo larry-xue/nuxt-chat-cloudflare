@@ -75,7 +75,9 @@ const onTranslate = () => {
     method: 'POST',
     body: payload
   }).then((data) => {
-    console.log('data = ', data)
+    const { translated_text } = data
+
+    state.value[state.value.target === 'left' ? 'right' : 'left'] = translated_text
   }).catch((e) => {
     console.log(e)
     toast.add({

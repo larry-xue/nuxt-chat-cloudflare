@@ -13,7 +13,7 @@
           </span>
         </h1>
         <!-- close icon -->
-        <div v-show="isMobile" class="cursor-pointer justify-end">
+        <div v-show="isMobile" class="cursor-pointer">
           <UButton icon="i-heroicons-x-mark" variant="ghost" color="gray" @click="$emit('update:isShowSidebar', false)">
           </UButton>
         </div>
@@ -39,7 +39,7 @@
       <!-- switch theme -->
       <UButton variant="ghost" color="primary" :trailing="false" class="w-full"
         :icon="$colorMode.value === 'light' ? 'i-heroicons-sun' : 'i-heroicons-moon'"
-        @click="$colorMode.preference = $colorMode.value === 'light' ? 'dark' : 'light'">
+        @click="$colorMode = $colorMode === 'light' ? 'dark' : 'light'">
         {{ $colorMode.value === 'light' ? 'Dark' : 'Light' }}
       </UButton>
     </div>

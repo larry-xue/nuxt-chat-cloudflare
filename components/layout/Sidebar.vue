@@ -1,8 +1,9 @@
 <template>
   <!-- side bar menu -->
-  <div class="w-64 h-screen p-4 border-r border-gray-200 dark:border-gray-800" :class="`bg-${$colorMode.value}-900`">
+  <div class="w-64 h-screen p-4 border-r border-gray-200 dark:border-gray-800"
+    :class="[`bg-${$colorMode.value}-900`, isMobile && 'border-none w-screen']">
     <!-- logo & header -->
-    <div class="mb-4">
+    <div class="mb-4 w-full">
       <div class="flex items-center gap-2 mb-2">
         <i class="i-logos-vue"></i>
         <h1 class="text-black text-md font-bold dark:text-white flex gap-2">
@@ -11,8 +12,13 @@
             {{ header }}
           </span>
         </h1>
+        <!-- close icon -->
+        <div v-show="isMobile" class="cursor-pointer justify-end">
+          <UButton icon="i-heroicons-x-mark" variant="ghost" color="gray" @click="$emit('update:isShowSidebar', false)">
+          </UButton>
+        </div>
       </div>
-      <p class="text-white text-sm">
+      <p class="ext-sm">
         {{ description }}
       </p>
     </div>
@@ -41,6 +47,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useColorMode, breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+
 export interface SideMenuItem {
   name: string
   icon: string
@@ -60,9 +68,13 @@ defineProps({
   },
 })
 
+defineEmits(['update:isShowSidebar'])
+
 const router = useRouter()
 const $colorMode = useColorMode()
 const menu = ref<SideMenuItem[]>([])
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isMobile = breakpoints.smaller('md')
 
 const currentMenu = computed(() => router.currentRoute.value.path)
 

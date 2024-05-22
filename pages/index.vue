@@ -9,6 +9,7 @@
           <div class="flex mt-4 gap-2 justify-center">
             <UButton to="/chat" color="green">Chat</UButton>
             <UButton color="violet" variant="solid" to="/translate">Translate</UButton>
+            <UButton color="blue" variant="solid" to="/text2image">Text to Image</UButton>
           </div>
         </div>
       </div>

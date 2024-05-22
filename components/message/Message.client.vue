@@ -13,10 +13,11 @@
         {{ message.from.name }}
       </p>
       <div class="flex" :class="{ ' justify-end': isMe }">
-        <p :ref="(el) => (bodyRef = el)"
+        <p v-if="!isImage" :ref="(el) => (bodyRef = el)"
           class=" w-fit max-w-full text-left break-words text-sm text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-50 p-3 rounded-lg"
           v-html="messageTransformer(message.body)">
         </p>
+        <img v-else :src="message.body" class="w-1/2 h-1/2 rounded-lg" />
       </div>
     </div>
   </div>
@@ -29,11 +30,12 @@ export type MessageProps = {
       name: string
       avatar?: string
     }
-    body: string
+    body: string | HTMLElement
   }
   isMe: boolean
   isPending: boolean,
   gotResponse?: boolean,
+  isImage?: boolean,
 }
 
 const botAvatar = ref('https://i.pravatar.cc/128?u=0')
@@ -49,10 +51,15 @@ const props = defineProps({
         avatar: 'https://i.pravatar.cc/128?u=0',
       },
       body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      isPending: false
+      isPending: false,
+      gotResponse: false,
     })
   },
   isMe: {
+    type: Boolean,
+    default: false
+  },
+  isImage: {
     type: Boolean,
     default: false
   }

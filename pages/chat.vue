@@ -1,17 +1,5 @@
 <template>
-  <Layout class="box-border overflow-hidden">
-    <template #header>
-      <div class="flex gap-4 items-center w-full justify-around">
-        <h1 class="text-3xl font-bold">Chat with me</h1>
-        <!-- <UFormGroup label="" name="model" class="w-100">
-          <USelect v-model="state.model" :options="['gpt-3.5-turbo', 'gpt-4']">
-          </USelect>
-        </UFormGroup> -->
-      </div>
-    </template>
-
-    <UDivider class="mb-4" />
-
+  <ContentBox class="box-border overflow-hidden">
     <div class="flex flex-col w-full chat-box-wrapper">
       <div class="w-full h-full p-2 overflow-x-hidden overflow-y-auto chat-messages">
         <ClientOnly class="w-full">
@@ -32,14 +20,21 @@
         </UFormGroup>
       </UForm>
     </div>
-  </Layout>
+  </ContentBox>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Layout from '@/components/layout/index.vue'
 import type { MessageProps } from '@/components/message/Message.client.vue';
+import ContentBox from '~/components/layout/ContentBox.vue';
 const toast = useToast()
+
+definePageMeta({
+  icon: 'i-heroicons-chat-bubble-oval-left-ellipsis',
+  title: 'Chat',
+  sort: 1
+})
+
 
 const state = ref({
   model: 'gpt-3.5-turbo',

@@ -1,0 +1,89 @@
+<template>
+  <!-- side bar menu -->
+  <div class="w-64 h-screen p-4 border-r border-gray-200 dark:border-gray-800" :class="`bg-${$colorMode.value}-900`">
+    <!-- logo & header -->
+    <div class="mb-4">
+      <div class="flex items-center gap-2 mb-2">
+        <i class="i-logos-vue"></i>
+        <h1 class="text-black text-md font-bold dark:text-white flex gap-2">
+          <img class="w-6 h-6" src="../../public/favicon.ico" alt="">
+          <span>
+            {{ header }}
+          </span>
+        </h1>
+      </div>
+      <p class="text-white text-sm">
+        {{ description }}
+      </p>
+    </div>
+
+    <UDivider class="my-4" />
+
+    <div v-for="item in menu" class="mb-4 text-white text-sm">
+      <p class="mb-2 font-bold w-full">
+        <UButton class="w-full" :variant="currentMenu === item.link ? 'outline' : 'ghost'"
+          :color="currentMenu === item.link ? 'primary' : 'gray'" :icon="item.icon" @click="goTo(item)">{{ item.name }}
+        </UButton />
+      </p>
+    </div>
+
+    <UDivider class="my-4" />
+
+    <div class="mb-4 text-white text-sm">
+      <!-- switch theme -->
+      <UButton variant="ghost" color="primary" :trailing="false" class="w-full"
+        :icon="$colorMode.value === 'light' ? 'i-heroicons-sun' : 'i-heroicons-moon'"
+        @click="$colorMode.preference = $colorMode.value === 'light' ? 'dark' : 'light'">
+        {{ $colorMode.value === 'light' ? 'Dark' : 'Light' }}
+      </UButton>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+export interface SideMenuItem {
+  name: string
+  icon: string
+  link: string
+  sort: number
+  children?: SideMenuItem[]
+}
+
+defineProps({
+  header: {
+    type: String,
+    default: '',
+  },
+  description: {
+    type: String,
+    default: '',
+  },
+})
+
+const router = useRouter()
+const $colorMode = useColorMode()
+const menu = ref<SideMenuItem[]>([])
+
+const currentMenu = computed(() => router.currentRoute.value.path)
+
+onMounted(() => {
+  const routes = router.options.routes;
+  routes.forEach((route) => {
+    const { icon, title, sort } = (route?.meta as any) || {}
+    menu.value.push({
+      name: title,
+      icon,
+      link: route.path,
+      sort,
+    })
+  })
+
+  menu.value.sort((a, b) => a.sort - b.sort)
+})
+
+const goTo = (to: SideMenuItem) => {
+  if ((to.link as any) !== currentMenu) {
+    router.push(to.link)
+  }
+}
+</script>

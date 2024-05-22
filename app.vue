@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <NuxtPage />
-  </div>
+  <Layout header="Larry's AI Site"></Layout>
 </template>

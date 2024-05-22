@@ -1,13 +1,5 @@
 <template>
-  <Layout class="box-border overflow-hidden">
-    <template #header>
-      <div class="flex gap-4 items-center w-full justify-around">
-        <h1 class="text-3xl font-bold">Translate</h1>
-      </div>
-    </template>
-
-    <UDivider class="mb-4" />
-
+  <ContentBox class="box-border overflow-hidden">
     <UForm :state="state" :validate-on="['submit']"
       class="flex gap-2 flex-nowrap w-full box-border px-2 shrink-0 form-wrapper overflow-auto flex-col md:flex-row pt-2">
       <UFormGroup label="" name="input" class="shrink w-full">
@@ -27,13 +19,19 @@
           placeholder="please input English..." @input="onInput('right')" />
       </UFormGroup>
     </UForm>
-  </Layout>
+  </ContentBox>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Layout from '@/components/layout/index.vue'
+import ContentBox from '~/components/layout/ContentBox.vue';
 const toast = useToast()
+
+definePageMeta({
+  icon: 'i-heroicons-language',
+  title: 'Translate',
+  sort: 1
+})
 
 const state = ref<{
   left: string

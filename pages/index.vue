@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col h-screen w-full bg:-gray-900">
+  <div class="flex flex-col w-full bg:-gray-900">
     <!-- langding page to /chat and /translate -->
-    <Ucard class="w-full h-full">
-      <div class="flex justify-center items-center h-full">
+    <Ucard class="w-full">
+      <div class="flex justify-center pt-20">
         <div class="text-white">
           <p class="text-3xl font-bold mb-4 text-center text-green-500">Welcome to my ai bot site</p>
           <p class="text-3xl font-bold text-gray-300 text-center">Please select a page to start</p>
@@ -18,6 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-// redirect to /chat
-// useRouter().push('/chat')
+definePageMeta({
+  icon: 'i-heroicons-home',
+  title: 'Home',
+  sort: 0
+})
+
 </script>

@@ -1,13 +1,5 @@
 <template>
-  <Layout class="box-border overflow-hidden">
-    <template #header>
-      <div class="flex gap-4 items-center w-full justify-around">
-        <h1 class="text-3xl font-bold">Text to Image</h1>
-        <p class="text-gray-400 pt-2">enter a prompt to generate an image</p>
-      </div>
-    </template>
-    <UDivider class="mb-4" />
-
+  <ContentBox class="box-border overflow-hidden">
     <div class="flex flex-col w-full chat-box-wrapper">
       <div class="w-full h-full p-2 overflow-x-hidden overflow-y-auto chat-messages">
         <ClientOnly class="w-full">
@@ -28,14 +20,20 @@
         </UFormGroup>
       </UForm>
     </div>
-  </Layout>
+  </ContentBox>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Layout from '@/components/layout/index.vue'
+import ContentBox from '~/components/layout/ContentBox.vue';
 import type { MessageProps } from '@/components/message/Message.client.vue';
 const toast = useToast()
+
+definePageMeta({
+  icon: 'i-heroicons-photo',
+  title: 'Text to Image',
+  sort: 2
+})
 
 const state = ref({
   model: 'gpt-3.5-turbo',

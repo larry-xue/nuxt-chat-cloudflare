@@ -9,7 +9,7 @@
     <UDivider class="mb-4" />
 
     <UForm :state="state" :validate-on="['submit']"
-      class="flex gap-2 flex-nowrap w-full box-border px-2 shrink-0 form-wrapper overflow-auto flex-col md:flex-row">
+      class="flex gap-2 flex-nowrap w-full box-border px-2 shrink-0 form-wrapper overflow-auto flex-col md:flex-row pt-2">
       <UFormGroup label="" name="input" class="shrink w-full">
         <UTextarea autoresize :disabled="pending" :rows="12" :max-rows="12" v-model="state.left" placeholder="请输入中文..."
           @input="onInput('left')" />

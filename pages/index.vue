@@ -1,27 +1,20 @@
 <template>
-  <div class="flex flex-col w-full bg:-gray-900">
-    <!-- langding page to /chat and /translate -->
-    <Ucard class="w-full">
-      <div class="flex justify-center pt-20">
-        <div class="text-white">
-          <p class="text-3xl font-bold mb-4 text-center text-green-500">Welcome to my ai bot site</p>
-          <p class="text-3xl font-bold text-gray-300 text-center">Please select a page to start</p>
-          <div class="flex mt-4 gap-2 justify-center">
-            <UButton to="/chat" color="green">Chat</UButton>
-            <UButton color="violet" variant="solid" to="/translate">Translate</UButton>
-            <UButton color="blue" variant="solid" to="/text2image">Text to Image</UButton>
-          </div>
-        </div>
+  <div class="h-full flex justify-center">
+    <div class="text-center p-6 pt-20bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg">
+      <h1 class="text-4xl font-bold mb-4">Welcome to Larry's AI Site</h1>
+      <p class="text-lg mb-4">This site is currently under development. If you have any questions, please contact me on GitHub.</p>
+      <div class="space-x-4">
+        <a href="https://github.com/larry-xue" class="text-lg font-semibold underline hover:text-gray-300">GitHub</a>
+        <a href="https://blog.larryxue.dev" class="text-lg font-semibold underline hover:text-gray-300">Blog</a>
       </div>
-    </Ucard>
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 definePageMeta({
   icon: 'i-heroicons-home',
   title: 'Home',
   sort: 0
 })
-
 </script>

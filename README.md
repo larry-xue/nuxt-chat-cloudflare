@@ -1,75 +1,99 @@
-# Nuxt 3 Minimal Starter
+# Larry's AI Site
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Welcome to Larry's AI Site! This site is currently under development. If you have any questions, please contact me on GitHub.
 
-## Setup
+## Live Demo
 
-Make sure to install the dependencies:
+You can view the live demo at [ai.larryxue.dev](https://ai.larryxue.dev/).
 
-```bash
-# npm
-npm install
+## Technical Details
 
-# pnpm
-pnpm install
+This site is developed using [Nuxt v3](https://nuxt.com/) and [Nuxt UI](https://ui.nuxt.com). The AI model is powered by Cloudflare AI Workers.
 
-# yarn
-yarn install
+## How to Deploy Privately
 
-# bun
-bun install
+### Create a Fork and Push to Cloudflare Pages
+
+1. Create a fork of this repository.
+2. Go to Cloudflare Pages and select this repository as the source.
+3. Create a new Cloudflare Pages site.
+
+### Create Cloudflare Worker AI
+
+**After setting up each AI model, configure your worker environment:**
+1. Go to *Settings > Variables > AI Bindings*.
+2. Create an environment with the name *AI*.
+
+#### Chat Model Code
+
+```ts
+export default {
+  async fetch(request, env) {
+    const messages = await request.json();
+    const response = await env.AI.run('@cf/meta/llama-2-7b-chat-fp16', { messages });
+
+    return Response.json(response);
+  }
+};
 ```
 
-## Development Server
+#### Translate Model Code
 
-Start the development server on `http://localhost:3000`:
+```ts
+// This model has set the source_lang and target_lang
+// You can change the source_lang and target_lang
+export default {
+  async fetch(request, env) {
+    const { text, source_lang, target_lang } = await request.json();
+    const inputs = {
+      text,
+      source_lang: source_lang || 'zh',
+      target_lang: target_lang || 'en'
+    };
+    const response = await env.AI.run('@cf/meta/m2m100-1.2b', inputs);
 
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+    return Response.json(response);
+  }
+};
 ```
 
-## Production
+#### Text to Image Model Code
 
-Build the application for production:
+```ts
+export default {
+  async fetch(request, env) {
+    const { prompt } = await request.json();
 
-```bash
-# npm
-npm run build
+    const response = await env.AI.run(
+      '@cf/stabilityai/stable-diffusion-xl-base-1.0',
+      { prompt }
+    );
 
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+    return new Response(response, {
+      headers: {
+        'content-type': 'image/png'
+      }
+    });
+  }
+};
 ```
 
-Locally preview production build:
+### Set Pages Environment Variables
+
+Go to *Pages > Settings > Environment Variables* and set the following variables:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+CLOUDFLARE_WORKER_URL=your-chat-ai-worker-url
+CLOUDFLARE_TRANSLATE_WORKER_URL=your-translate-ai-worker-url
+CLOUDFLARE_TEXT2IMAGE_WORKER_URL=your-text2image-ai-worker-url
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+That's almost done!
+
+### Further Settings
+
+You can change the default AI model by reading the Cloudflare AI documentation.
+
+## Contributing
+
+If you want to contribute, please see the [CONTRIBUTING](CONTRIBUTING.md) guide.

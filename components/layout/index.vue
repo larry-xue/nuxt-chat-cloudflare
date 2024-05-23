@@ -5,7 +5,7 @@
       <Sidebar v-show="isShowSidebar" :header="header" :description="description" :menu="menu" />
 
       <div class="flex flex-1 flex-col sm:w-0" :class="{ 'md:w-full': isShowSidebar }">
-        <NavBar v-show="isMobile" />
+        <NavBar v-show="isMobile" :header="header" />
         <!-- content -->
         <div class="p-4 overflow-auto w-full h-screen" :class="{ 'page-wrapper': isMobile }">
           <NuxtPage />

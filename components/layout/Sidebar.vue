@@ -4,14 +4,16 @@
     :class="[`bg-${$colorMode.value}-900`, isMobile && 'border-none w-screen']">
     <!-- logo & header -->
     <div class="mb-4 w-full">
-      <div class="flex items-center gap-2 mb-2">
-        <i class="i-logos-vue"></i>
-        <h1 class="text-black text-md font-bold dark:text-white flex gap-2">
-          <img class="w-6 h-6" src="../../public/favicon.ico" alt="">
-          <span>
-            {{ header }}
-          </span>
-        </h1>
+      <div class="w-full flex items-center gap-2 mb-2 dark:text-white justify-between">
+        <div class="flex items-center gap-2">
+          <i class="i-logos-vue"></i>
+          <h1 class="text-black text-md font-bold dark:text-white flex gap-2">
+            <img class="w-6 h-6" src="../../public/favicon.ico" alt="">
+            <span>
+              {{ header }}
+            </span>
+          </h1>
+        </div>
         <!-- close icon -->
         <div v-show="isMobile" class="cursor-pointer">
           <UButton icon="i-heroicons-x-mark" variant="ghost" color="gray" @click="$emit('update:isShowSidebar', false)">
@@ -38,9 +40,9 @@
     <div class="mb-4 text-white text-sm">
       <!-- switch theme -->
       <UButton variant="ghost" color="primary" :trailing="false" class="w-full"
-        :icon="$colorMode.value === 'light' ? 'i-heroicons-sun' : 'i-heroicons-moon'"
+        :icon="$colorMode === 'light' ? 'i-heroicons-sun' : 'i-heroicons-moon'"
         @click="$colorMode = $colorMode === 'light' ? 'dark' : 'light'">
-        {{ $colorMode.value === 'light' ? 'Dark' : 'Light' }}
+        {{ $colorMode === 'light' ? 'Light' : 'Dark' }}
       </UButton>
     </div>
   </div>
@@ -68,7 +70,7 @@ defineProps({
   },
 })
 
-defineEmits(['update:isShowSidebar'])
+const $emit = defineEmits(['update:isShowSidebar'])
 
 const router = useRouter()
 const $colorMode = useColorMode()
@@ -96,6 +98,7 @@ onMounted(() => {
 const goTo = (to: SideMenuItem) => {
   if ((to.link as any) !== currentMenu) {
     router.push(to.link)
+    $emit('update:isShowSidebar', false)
   }
 }
 </script>

@@ -10,7 +10,7 @@
       </h2>
     </div>
     <UModal v-model="isOpen" fullscreen>
-      <Sidebar @update:is-show-sidebar="isOpen = false" />
+      <Sidebar @update:is-show-sidebar="isOpen = false" :header="header" />
     </UModal>
   </div>
 </template>
@@ -30,6 +30,10 @@ defineProps({
     default: '',
   },
   subtitle: {
+    type: String,
+    default: '',
+  },
+  header: {
     type: String,
     default: '',
   },

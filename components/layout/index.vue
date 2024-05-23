@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen w-full overflow-hidden" :class="`bg-${$colorMode}-900`">
+  <div class="flex flex-col h-screen w-full" :class="`bg-${$colorMode}-900`">
     <ClientOnly>
       <div class="flex flex-1">
         <!-- sidebar -->

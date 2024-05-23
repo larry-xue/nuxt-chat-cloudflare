@@ -11,3 +11,7 @@ useHead({
   ]
 })
 </script>
+
+<style>
+@import url('./style/global.css')
+</style>

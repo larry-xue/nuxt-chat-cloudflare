@@ -2,6 +2,8 @@
 
 Welcome to Larry's AI Site! This site is currently under development. If you have any questions, please contact me on GitHub.
 
+- [中文](./docs/README_CN.md)
+
 ## Live Demo
 
 You can view the live demo at [ai.larryxue.dev](https://ai.larryxue.dev/).
@@ -96,4 +98,4 @@ You can change the default AI model by reading the Cloudflare AI documentation.
 
 ## Contributing
 
-If you want to contribute, please see the [CONTRIBUTING](CONTRIBUTING.md) guide.
+If you want to contribute, please see the [CONTRIBUTING](./docs/CONTRIBUTING.md) guide.

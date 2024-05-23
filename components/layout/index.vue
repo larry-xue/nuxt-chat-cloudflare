@@ -9,7 +9,7 @@
           <NavBar v-show="isMobile" :header />
           <!-- content -->
           <div :class="[isMobile && 'page-wrapper', 'p-4 overflow-auto w-full h-screen']">
-            <NuxtPage />
+            <NuxtPage keepalive />
           </div>
         </div>
       </div>

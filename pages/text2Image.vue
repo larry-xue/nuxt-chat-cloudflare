@@ -1,6 +1,6 @@
 <template>
-  <ContentBox class="box-border overflow-hidden">
-    <div class="w-full h-full grid grid-rows-[1fr_4rem] grid-cols-1">
+  <ContentBox class="box-border py-2">
+    <div class="w-full h-full grid grid-rows-[1fr_auto] grid-cols-1">
       <div class="w-full h-full p-2 overflow-x-hidden overflow-y-auto chat-messages">
         <ClientOnly class="w-full">
           <div v-for="msg in messages" :ref="(el) => messageBoxRef = el">

@@ -1,5 +1,5 @@
 <template>
-  <ContentBox class="box-border overflow-hidden">
+  <ContentBox class="box-border">
     <UForm :state="state" :validate-on="['submit']"
       class="flex gap-2 flex-nowrap w-full box-border px-2 shrink-0 form-wrapper overflow-auto flex-col md:flex-row pt-2">
       <UFormGroup label="" name="input" class="shrink w-full">

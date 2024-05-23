@@ -1,17 +1,19 @@
 <template>
   <div class="flex flex-col h-screen w-full overflow-hidden" :class="`bg-${$colorMode}-900`">
-    <div class="flex flex-1">
-      <!-- sidebar -->
-      <Sidebar v-show="isShowSidebar" :header="header" :description="description" :menu="menu" />
+    <ClientOnly>
+      <div class="flex flex-1">
+        <!-- sidebar -->
+        <Sidebar v-show="isShowSidebar" :header="header" :description="description" :menu="menu" />
 
-      <div class="flex flex-1 flex-col sm:w-0" :class="{ 'md:w-full': isShowSidebar }">
-        <NavBar v-show="isMobile" :header="header" />
-        <!-- content -->
-        <div class="p-4 overflow-auto w-full h-screen" :class="{ 'page-wrapper': isMobile }">
-          <NuxtPage />
+        <div class="flex flex-1 flex-col sm:w-0" :class="{ 'md:w-full': isShowSidebar }">
+          <NavBar v-show="isMobile" :header />
+          <!-- content -->
+          <div :class="[isMobile && 'page-wrapper', 'p-4 overflow-auto w-full h-screen']">
+            <NuxtPage />
+          </div>
         </div>
       </div>
-    </div>
+    </ClientOnly>
   </div>
 </template>
 

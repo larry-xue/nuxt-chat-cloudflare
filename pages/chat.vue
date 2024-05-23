@@ -1,7 +1,7 @@
 <template>
   <ContentBox class="box-border overflow-hidden">
-    <div class="flex flex-col w-full chat-box-wrapper">
-      <div class="w-full h-full p-2 overflow-x-hidden overflow-y-auto chat-messages">
+    <div class="w-full h-full grid grid-rows-[1fr_4rem] grid-cols-1">
+      <div class="w-full h-full p-2 overflow-x-hidden overflow-y-auto row-span-1">
         <ClientOnly class="w-full">
           <div v-for="msg in messages" :ref="(el) => messageBoxRef = el">
             <Message :is-me="msg.isMe" :message="msg.message" />
@@ -139,9 +139,3 @@ function sendMessage() {
   state.value.message = ''
 }
 </script>
-
-<style lang="scss" scoped>
-.chat-box-wrapper {
-  height: calc(100% - 20px);
-}
-</style>

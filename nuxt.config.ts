@@ -2,7 +2,4 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/ui', "@sidebase/nuxt-auth"],
-  auth: {
-    origin: process.env.ORIGIN,
-  },
 })

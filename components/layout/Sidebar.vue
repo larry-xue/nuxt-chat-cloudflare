@@ -44,12 +44,15 @@
         @click="$colorMode = $colorMode === 'light' ? 'dark' : 'light'">
         {{ $colorMode === 'light' ? 'Light' : 'Dark' }}
       </UButton>
+      <!-- Auth -->
+      <Auth class="w-full mt-4" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useColorMode, breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+import Auth from '~/components/auth/Auth.vue';
 
 export interface SideMenuItem {
   name: string

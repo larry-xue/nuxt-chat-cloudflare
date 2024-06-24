@@ -31,8 +31,8 @@ This site is developed using [Nuxt v3](https://nuxt.com/) and [Nuxt UI](https://
 ```ts
 export default {
   async fetch(request, env) {
-    const messages = await request.json();
-    const response = await env.AI.run('@cf/meta/llama-2-7b-chat-fp16', { messages });
+    const { messages , model } = await request.json();
+    const response = await env.AI.run(model || '@cf/meta/llama-2-7b-chat-fp16', { messages });
 
     return Response.json(response);
   }
@@ -85,7 +85,7 @@ export default {
 Go to *Pages > Settings > Environment Variables* and set the following variables:
 
 ```bash
-CLOUDFLARE_WORKER_URL=your-chat-ai-worker-url
+CLOUDFLARE_CHAT_WORKER_URL=your-chat-ai-worker-url
 CLOUDFLARE_TRANSLATE_WORKER_URL=your-translate-ai-worker-url
 CLOUDFLARE_TEXT2IMAGE_WORKER_URL=your-text2image-ai-worker-url
 ```

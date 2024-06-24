@@ -31,8 +31,8 @@
 ```ts
 export default {
   async fetch(request, env) {
-    const messages = await request.json();
-    const response = await env.AI.run('@cf/meta/llama-2-7b-chat-fp16', { messages });
+    const { messages , model } = await request.json();
+    const response = await env.AI.run(model || '@cf/meta/llama-2-7b-chat-fp16', { messages });
 
     return Response.json(response);
   }
@@ -85,7 +85,7 @@ export default {
 转到 *页面 > 设置 > 环境变量* 并设置以下变量：
 
 ```bash
-CLOUDFLARE_WORKER_URL=your-chat-ai-worker-url
+CLOUDFLARE_CHAT_WORKER_URL=your-chat-ai-worker-url
 CLOUDFLARE_TRANSLATE_WORKER_URL=your-translate-ai-worker-url
 CLOUDFLARE_TEXT2IMAGE_WORKER_URL=your-text2image-ai-worker-url
 ```

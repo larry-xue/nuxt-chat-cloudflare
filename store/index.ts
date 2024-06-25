@@ -8,7 +8,7 @@ export const useConfigStore = defineStore('config', {
   state: () => {
     const chatConfig = storage.get('chatConfig')
     return {
-      chatModel: chatConfig?.model || 'gpt-3.5-turbo',
+      chatModel: chatConfig?.model || '@hf/google/gemma-7b-it',
       contextSize: chatConfig?.contextSize || 2048
     }
   },

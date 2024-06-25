@@ -29,10 +29,11 @@ import { ref } from 'vue'
 import type { MessageProps } from '@/components/message/Message.client.vue';
 import ContentBox from '~/components/layout/ContentBox.vue';
 import Headerbar from './components/headerbar.vue';
-import { useConfigStore } from '~/store';
+import { useChatHistoryStore, useConfigStore } from '~/store';
 
 const toast = useToast()
 const configStore = useConfigStore()
+const chatHistoryStore = useChatHistoryStore()
 
 definePageMeta({
   icon: 'i-heroicons-chat-bubble-oval-left-ellipsis',
@@ -48,20 +49,7 @@ const messageBoxRef = ref<Element | ComponentPublicInstance | null>()
 const textareaRef = ref<Element | ComponentPublicInstance | null>()
 const pending = ref(false)
 
-const messages = ref<MessageProps[]>([
-  {
-    isMe: false,
-    message: {
-      from: {
-        name: 'Bot',
-        avatar: 'https://i.pravatar.cc/300'
-      },
-      body: 'Hello, how can I help you today?',
-    },
-    isPending: false
-  }
-])
-
+const messages = computed<MessageProps[]>(() => chatHistoryStore.getMessages)
 
 function getRecentMessage() {
   // get latest 3 messages
@@ -93,7 +81,7 @@ function sendMessage() {
       description: 'Please enter a message.',
       color: 'gray',
       icon: 'i-heroicons-exclamation-circle',
-      timeout: 3000,
+      timeout: 1000,
     })
   }
 
@@ -107,7 +95,8 @@ function sendMessage() {
     },
     isPending: false,
   }
-  messages.value.push(message)
+
+  chatHistoryStore.addMessage(message)
 
   // get ai response
   const botResponse = {
@@ -137,7 +126,7 @@ function sendMessage() {
     pending.value = false
   })
 
-  messages.value.push(botResponse)
+  chatHistoryStore.addMessage(botResponse)
 
   nextTick(() => {
     // focus textarea

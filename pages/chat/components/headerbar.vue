@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { useConfigStore } from '~/store';
+import { useChatHistoryStore, useConfigStore } from '~/store';
 import SettingsModal from './settingsModal.vue'
 import type { ChatSettingForm } from '../types';
 
 const modal = useModal()
 const toast = useToast()
 const configStore = useConfigStore()
+const chatHistoryStore = useChatHistoryStore()
 
 const showSettings = () => {
   modal.open(SettingsModal, {
@@ -16,11 +17,8 @@ const showSettings = () => {
       configStore.setContextSize(form.contextSize)
 
       toast.add({
-        title: 'Notification',
-        description: 'Settings saved successfully',
-        color: 'gray',
-        icon: 'i-heroicons-exclamation-circle',
-        timeout: 3000,
+        title: 'Settings saved successfully',
+        timeout: 1000,
       })
 
     },
@@ -29,11 +27,26 @@ const showSettings = () => {
     }
   })
 }
+
+const resetChatHistory = () => {
+  chatHistoryStore.startNewChat()
+  toast.add({
+    title: 'Chat history reset successfully',
+    timeout: 1000,
+  })
+}
 </script>
 
 <template>
-  <div class="absolute top-4 border-b border-gray-200 dark:border-gray-800 w-full pb-2">
-    <UButton icon="i-heroicons-bars-3-center-left" size="sm" color="gray" square variant="solid"
-      @click="showSettings" />
+  <div class="absolute top-4 border-b border-gray-200 dark:border-gray-800 pb-2 flex gap-2">
+    <UTooltip text="Settings">
+      <UButton icon="i-heroicons-bars-3-center-left" size="sm" color="gray" square variant="solid"
+        @click="showSettings" />
+    </UTooltip>
+    <UTooltip text="Start a new chat">
+      <UButton icon=" i-heroicons-plus" size="sm" color="green" square variant="solid" @click="resetChatHistory" />
+    </UTooltip>
+    <!-- <UTooltip text="Start a new chat"">
+    </UTooltip> -->
   </div>
 </template>

@@ -80,7 +80,7 @@ function sendMessage() {
       description: 'Please enter a message.',
       color: 'gray',
       icon: 'i-heroicons-exclamation-circle',
-      timeout: 3000,
+      timeout: 1000,
     })
   }
 

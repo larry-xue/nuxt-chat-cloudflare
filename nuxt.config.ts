@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxt/ui', "@sidebase/nuxt-auth"],
-  auth: {
-    baseURL: process.env.AUTH_ORIGIN
-  }
+  modules: [
+    '@nuxt/ui',
+    '@pinia/nuxt',
+  ],
 })

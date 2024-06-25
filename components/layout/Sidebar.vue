@@ -45,14 +45,14 @@
         {{ $colorMode === 'light' ? 'Light' : 'Dark' }}
       </UButton>
       <!-- Auth -->
-      <Auth class="w-full mt-4" />
+      <!-- <Auth class="w-full mt-4" /> -->
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useColorMode, breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import Auth from '~/components/auth/Auth.vue';
+// import Auth from '~/components/auth/Auth.vue';
 
 export interface SideMenuItem {
   name: string
@@ -96,6 +96,8 @@ onMounted(() => {
   })
 
   menu.value.sort((a, b) => a.sort - b.sort)
+
+  menu.value = menu.value.filter((item) => item.name)
 })
 
 const goTo = (to: SideMenuItem) => {

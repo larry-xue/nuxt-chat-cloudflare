@@ -1,5 +1,6 @@
 <template>
-  <ContentBox class="box-border py-2">
+  <ContentBox class="box-border py-2 pt-8">
+    <Headerbar />
     <div class="w-full h-full grid grid-rows-[1fr_auto] grid-cols-1">
       <div class="w-full h-full p-2 overflow-x-hidden overflow-y-auto row-span-1">
         <ClientOnly class="w-full">
@@ -27,7 +28,11 @@
 import { ref } from 'vue'
 import type { MessageProps } from '@/components/message/Message.client.vue';
 import ContentBox from '~/components/layout/ContentBox.vue';
+import Headerbar from './components/headerbar.vue';
+import { useConfigStore } from '~/store';
+
 const toast = useToast()
+const configStore = useConfigStore()
 
 definePageMeta({
   icon: 'i-heroicons-chat-bubble-oval-left-ellipsis',
@@ -37,11 +42,10 @@ definePageMeta({
 
 
 const state = ref({
-  model: 'gpt-3.5-turbo',
   message: ''
 })
-const messageBoxRef = ref<Element | ComponentPublicInstance>()
-const textareaRef = ref<Element | ComponentPublicInstance>()
+const messageBoxRef = ref<Element | ComponentPublicInstance | null>()
+const textareaRef = ref<Element | ComponentPublicInstance | null>()
 const pending = ref(false)
 
 const messages = ref<MessageProps[]>([
@@ -61,7 +65,7 @@ const messages = ref<MessageProps[]>([
 
 function getRecentMessage() {
   // get latest 3 messages
-  return messages.value.slice(-3).filter(m => m.isMe || m.gotResponse).map(m => {
+  return messages.value.slice(configStore.contextSize * -1).filter(m => m.isMe || m.gotResponse).map(m => {
     return { role: m.isMe ? 'user' : 'assistant', content: m.message.body }
   })
 }
@@ -72,7 +76,10 @@ async function getAiResponse() {
   }>(
     '/api/chat', {
     method: 'POST',
-    body: getRecentMessage()
+    body: {
+      messages: getRecentMessage(),
+      model: configStore.chatModel
+    }
   })
   return data.response || "I'm sorry, I don't have an answer for that."
 }

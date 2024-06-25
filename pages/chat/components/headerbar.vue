@@ -2,11 +2,14 @@
 import { useChatHistoryStore, useConfigStore } from '~/store';
 import SettingsModal from './settingsModal.vue'
 import type { ChatSettingForm } from '../types';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 const modal = useModal()
 const toast = useToast()
 const configStore = useConfigStore()
 const chatHistoryStore = useChatHistoryStore()
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isMobile = breakpoints.smaller('md')
 
 const showSettings = () => {
   modal.open(SettingsModal, {
@@ -38,7 +41,7 @@ const resetChatHistory = () => {
 </script>
 
 <template>
-  <div class="absolute top-4 border-b border-gray-200 dark:border-gray-800 pb-2 flex gap-2">
+<div class="absolute top-4 border-b border-gray-200 dark:border-gray-800 pb-2 flex gap-2" :class="[isMobile && 'right-4', 'border-b-0', 'top-3']">
     <UTooltip text="Settings">
       <UButton icon="i-heroicons-bars-3-center-left" size="sm" color="gray" square variant="solid"
         @click="showSettings" />

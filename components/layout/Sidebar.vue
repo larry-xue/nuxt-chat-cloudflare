@@ -96,6 +96,8 @@ onMounted(() => {
   })
 
   menu.value.sort((a, b) => a.sort - b.sort)
+
+  menu.value = menu.value.filter((item) => item.name)
 })
 
 const goTo = (to: SideMenuItem) => {

@@ -1,6 +1,7 @@
 <template>
   <Layout header="Larry's AI Site"></Layout>
   <UModals />
+  <UNotifications />
 </template>
 
 <script lang="ts" setup>

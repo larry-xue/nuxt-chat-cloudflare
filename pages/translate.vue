@@ -62,7 +62,7 @@ const onTranslate = () => {
       description: 'Please enter some text.',
       color: 'gray',
       icon: 'i-heroicons-exclamation-circle',
-      timeout: 3000,
+      timeout: 1000,
     })
 
     return
@@ -83,7 +83,7 @@ const onTranslate = () => {
       description: 'Something went wrong. Please try again later.',
       color: 'gray',
       icon: 'i-heroicons-exclamation-circle',
-      timeout: 3000,
+      timeout: 1000,
     })
   }).finally(() => {
     pending.value = false
